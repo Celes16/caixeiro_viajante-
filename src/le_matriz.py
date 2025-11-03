@@ -1,8 +1,8 @@
-# utils.py
+
 import sys
 
 def ler_matriz_adjacencia(nome_arquivo):
-    """Lê uma matriz de adjacência de um arquivo de texto."""
+
     matriz = []
     try:
         with open(nome_arquivo, 'r') as f:
