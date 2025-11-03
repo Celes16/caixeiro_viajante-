@@ -3,6 +3,7 @@ import os
 import re
 from algoritmo_aproximativo import executar_aproximativo
 from algoritmo_exato import executar_exato
+from algoritmo_insercao import executar_insercao # NOVA IMPORTAÇÃO
 from le_matriz import ler_matriz_adjacencia
 
 def extrair_custo_otimo(nome_arquivo):
@@ -20,21 +21,41 @@ def processar_instancia(caminho_completo_arquivo):
     nome_arquivo_simples = os.path.basename(caminho_completo_arquivo)
     print(f"--- Processando instância: {nome_arquivo_simples} ---")
     
+# --- NOVO TRECHO: Leitura para Contagem de Vértices ---
+    matriz_temp = ler_matriz_adjacencia(caminho_completo_arquivo)
+    num_cidades = len(matriz_temp)
+    print(f"Número de Cidades (Vértices): {num_cidades}")
+    print("-" * 30)
+    # ------------------------------------------------------
+
     custo_otimo = extrair_custo_otimo(nome_arquivo_simples)
     if custo_otimo is None:
         print("Aviso: Não foi possível extrair o custo ótimo do nome do arquivo.")
-    
-    caminho_aprox, custo_aprox, tempo_aprox = executar_aproximativo(caminho_completo_arquivo)
+
+
+    # --- Algoritmo Aproximativo (Vizinho Mais Próximo) ---
+    caminho_vmp, custo_vmp, tempo_vmp = executar_aproximativo(caminho_completo_arquivo)
     
     print("\n[Algoritmo Aproximativo (Vizinho Mais Próximo)]")
-    print(f"Tempo de execução: {tempo_aprox:.6f} segundos")
-    print(f"Custo da solução: {custo_aprox}")
+    print(f"Tempo de execução: {tempo_vmp:.6f} segundos")
+    print(f"Custo da solução: {custo_vmp}")
     if custo_otimo is not None:
-        qualidade = (custo_aprox / custo_otimo) * 100
-        print(f"Qualidade da solução (em relação ao ótimo): {qualidade:.2f}%")
+        qualidade_vmp = (custo_vmp / custo_otimo) * 100
+        print(f"Qualidade da solução (em relação ao ótimo): {qualidade_vmp:.2f}%")
     print("-" * 30)
 
-    # Executa o algoritmo exato
+    # --- Algoritmo Aproximativo (Heurística de Inserção) ---
+    caminho_ins, custo_ins, tempo_ins = executar_insercao(caminho_completo_arquivo)
+    
+    print("\n[Algoritmo Aproximativo (Heurística de Inserção)]")
+    print(f"Tempo de execução: {tempo_ins:.6f} segundos")
+    print(f"Custo da solução: {custo_ins}")
+    if custo_otimo is not None:
+        qualidade_ins = (custo_ins / custo_otimo) * 100
+        print(f"Qualidade da solução (em relação ao ótimo): {qualidade_ins:.2f}%")
+    print("-" * 30)
+
+    # --- Algoritmo Exato (Força Bruta) ---
     matriz_exato = ler_matriz_adjacencia(caminho_completo_arquivo)
     if len(matriz_exato) > 10:
         print("\n[Algoritmo Exato (Força Bruta)]")
@@ -65,4 +86,3 @@ if __name__ == "__main__":
             processar_instancia(caminho_completo)
         else:
             print(f"Erro: O arquivo '{caminho_completo}' não foi encontrado. Verifique se a lista está correta e se o arquivo está no diretório pai.")
-
