@@ -7,7 +7,6 @@ def algoritmo_heuristica_insercao(matriz_adjacencia):
     num_cidades = len(matriz_adjacencia)
     
     if num_cidades < 3:
-        # Casos triviais ou insuficientes para um ciclo não-trivial
         if num_cidades == 1:
             return [0, 0], 0
         elif num_cidades == 2:
