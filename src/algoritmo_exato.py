@@ -1,10 +1,10 @@
-# algoritmo_exato.py
+
 import itertools
 import time
 from le_matriz import ler_matriz_adjacencia
 
 def algoritmo_exato_forca_bruta(matriz_adjacencia):
-    """Implementa o algoritmo exato de Força Bruta para o PCV."""
+
     num_cidades = len(matriz_adjacencia)
     cidade_inicial = 0
     cidades = list(range(num_cidades))
@@ -29,7 +29,7 @@ def algoritmo_exato_forca_bruta(matriz_adjacencia):
     return melhor_caminho, menor_custo
 
 def executar_exato(nome_arquivo):
-    """Executa o algoritmo exato e mede o tempo."""
+
     matriz = ler_matriz_adjacencia(nome_arquivo)
     
     num_cidades = len(matriz)
