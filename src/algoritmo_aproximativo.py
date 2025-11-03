@@ -1,9 +1,9 @@
-# algoritmo_aproximativo.py
+
 import time
 from le_matriz import ler_matriz_adjacencia
 
 def algoritmo_vizinho_mais_proximo(matriz_adjacencia):
-    """Implementa o algoritmo aproximativo do Vizinho Mais Próximo para o PCV."""
+    
     num_cidades = len(matriz_adjacencia)
     cidade_atual = 0
     caminho = [cidade_atual]
@@ -37,7 +37,7 @@ def algoritmo_vizinho_mais_proximo(matriz_adjacencia):
     return caminho, custo_total
 
 def executar_aproximativo(nome_arquivo):
-    """Executa o algoritmo aproximativo e mede o tempo."""
+
     matriz = ler_matriz_adjacencia(nome_arquivo)
     
     start_time = time.time()
